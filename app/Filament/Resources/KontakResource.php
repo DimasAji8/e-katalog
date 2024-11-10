@@ -17,7 +17,7 @@ class KontakResource extends Resource
     protected static ?string $navigationLabel = 'Kontak'; // Ganti label menjadi Admins
 
     // Mengelompokkan resource di sidebar
-    protected static ?string $navigationGroup = 'Management'; // Menambahkan grup
+    protected static ?string $navigationGroup = 'Setting'; // Menambahkan grup
 
 
     public static function form(Form $form): Form

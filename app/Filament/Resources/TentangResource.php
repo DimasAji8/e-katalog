@@ -13,9 +13,9 @@ class TentangResource extends Resource
 {
     protected static ?string $model = Tentang::class;
     
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
     protected static ?string $navigationLabel = 'Tentang'; // Ganti label menjadi Tentang
-    protected static ?string $navigationGroup = 'Management'; // Menambahkan grup
+    protected static ?string $navigationGroup = 'Setting'; // Menambahkan grup
 
     public static function form(Form $form): Form
     {

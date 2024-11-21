@@ -25,5 +25,14 @@
         </button>
     </div>
 
+    {{-- include tentang kami --}}
+    @include('tentangKami')
+
+    {{-- include sertifikasi --}}
+    @include('sertifikasi')
+
+    {{-- include ulasan --}}
+    @include('ulasan')
+
     <!-- Include Footer -->
     @include('footer')

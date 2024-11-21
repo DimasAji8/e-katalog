@@ -12,7 +12,11 @@ Route::get('/kategori', function() {
 });
 
 Route::get('/berita', function () {
-    return view('kontak');
+    return view('berita');
+});
+
+Route::get('/produk', function(){
+    return view('produk');
 });
 
 

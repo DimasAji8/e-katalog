@@ -13,7 +13,7 @@ class GalleryResource extends Resource
     protected static ?string $model = Gallery::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-camera';
-    protected static ?string $navigationLabel = 'Galeri'; // Label di sidebar
+    protected static ?string $navigationLabel = 'Galeri'; // Label di sidebaAAr
     protected static ?string $navigationGroup = 'Master'; // Menambahkan grup
 
     public static function form(Forms\Form $form): Forms\Form

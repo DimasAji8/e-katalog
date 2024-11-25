@@ -19,4 +19,9 @@ Route::get('/produk', function(){
     return view('produk');
 });
 
+Route::get('/testimoni', function(){
+    return view('testimoni');
+});
+
+
 

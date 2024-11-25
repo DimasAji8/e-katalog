@@ -8,58 +8,31 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan daftar produk di halaman views.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        //
+        // Mengambil semua data produk dengan relasi kategori dan merk
+        $products = Product::with(['category', 'merk'])->get();
+
+        // Mengirim data produk ke view
+        return view('product.index', compact('products'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Menampilkan detail sebuah produk.
+     *
+     * @param  Product $product
+     * @return \Illuminate\View\View
      */
     public function show(Product $product)
     {
-        //
-    }
+        // Memuat relasi kategori dan merk untuk detail produk
+        $product->load(['category', 'merk']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        // Mengirim data produk ke view
+        return view('product.show', compact('product'));
     }
 }

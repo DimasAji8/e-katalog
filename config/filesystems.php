@@ -30,21 +30,23 @@ return [
 
     'disks' => [
 
+        // Disk untuk penyimpanan file private
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app/private'),
-            'serve' => true,
+            'root' => storage_path('app'), // Menggunakan storage/app
             'throw' => false,
         ],
 
+        // Disk untuk file publik
         'public' => [
             'driver' => 'local',
-            'root' => public_path('storage'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public'), // Root penyimpanan untuk public files
+            'url' => env('APP_URL') . '/storage', // URL untuk mengakses file publik
             'visibility' => 'public',
             'throw' => false,
         ],
 
+        // Disk untuk penyimpanan di cloud S3
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -71,7 +73,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('storage') => storage_path('app/public'), // Symbolic link untuk akses publik
     ],
 
 ];

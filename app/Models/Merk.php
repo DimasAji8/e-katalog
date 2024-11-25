@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kategori extends Model
+class Merk extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'gambar', 'deskripsi'];
+    protected $fillable = ['nama', 'gambar'];
 }

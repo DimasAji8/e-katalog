@@ -10,7 +10,19 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kategori_id', 'name', 'description', 'price', 'images'];
+    protected $fillable = [
+        'kategori_id',
+        'merk_id',
+        'name',
+        'description',
+        'price',
+        'images',
+        'ukuran',
+        'penggunaan',
+        'desain',
+        'permukaan',
+        'sentuhan_akhir',
+    ];
 
     // Casting untuk kolom images agar diinterpretasikan sebagai array
     protected $casts = [
@@ -23,15 +35,20 @@ class Product extends Model
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
+    // Relasi ke merk
+    public function merk()
+    {
+        return $this->belongsTo(Merk::class, 'merk_id');
+    }
+
     // Accessor untuk mendapatkan gambar pertama dari kolom images
     public function getFirstImageAttribute()
     {
-        // Pastikan bahwa images adalah array dan memiliki elemen
         if (is_array($this->images) && !empty($this->images)) {
             return data_get($this->images, array_key_first($this->images));
         }
-        
-        return null; // Kembalikan null jika images tidak valid atau kosong
+
+        return null;
     }
 
     /**
@@ -43,12 +60,10 @@ class Product extends Model
 
         // Event untuk menghapus file terkait saat data dihapus
         static::deleting(function ($product) {
-            // Cek jika kolom images berisi array dari nama file
             if (is_array($product->images)) {
                 foreach ($product->images as $image) {
-                    // Cek jika file ada di storage
                     if (Storage::disk('public')->exists($image)) {
-                        Storage::disk('public')->delete($image); // Hapus file
+                        Storage::disk('public')->delete($image);
                     }
                 }
             }

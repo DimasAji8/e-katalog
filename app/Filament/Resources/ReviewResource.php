@@ -20,7 +20,7 @@ class ReviewResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-star';
     protected static ?string $navigationLabel = 'Ulasan';
-    protected static ?string $navigationGroup = 'Master';
+    protected static ?string $navigationGroup = 'Konten';
 
     // Form untuk input ulasan
     public static function form(Form $form): Form

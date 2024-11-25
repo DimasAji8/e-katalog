@@ -4,37 +4,37 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Gallery;
+use App\Models\Merk;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
-use App\Filament\Resources\GalleryResource\Pages;
+use App\Filament\Resources\MerkResource\Pages;
 
-class GalleryResource extends Resource
+class MerkResource extends Resource
 {
-    protected static ?string $model = Gallery::class;
+    protected static ?string $model = Merk::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-camera';
-    protected static ?string $navigationLabel = 'Galeri';
-    protected static ?string $navigationGroup = 'Konten';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
+    protected static ?string $navigationLabel = 'Merk';
+    protected static ?string $navigationGroup = 'Master';
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                TextInput::make('judul')
-                    ->label('Judul')
+                TextInput::make('nama')
+                    ->label('Nama Merk')
                     ->required()
                     ->maxLength(255),
 
                 FileUpload::make('gambar')
                     ->label('Gambar')
                     ->disk('public')
-                    ->directory('gallery-images') // Direktori penyimpanan
+                    ->directory('merk-images')
                     ->image()
-                    ->visibility('public') // Buat file dapat diakses
-                    ->maxSize(1024)
+                    ->visibility('public')
                     ->required(),
             ]);
     }
@@ -43,13 +43,13 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('judul')
-                    ->label('Judul')
+                TextColumn::make('nama')
+                    ->label('Nama Merk')
                     ->sortable()
                     ->searchable(),
 
                 ImageColumn::make('gambar')
-                    ->label('Image')
+                    ->label('Gambar')
                     ->disk('public')
                     ->size(60),
             ])
@@ -70,9 +70,9 @@ class GalleryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGalleries::route('/'),
-            'create' => Pages\CreateGallery::route('/create'),
-            'edit' => Pages\EditGallery::route('/{record}/edit'),
+            'index' => Pages\ListMerks::route('/'),
+            'create' => Pages\CreateMerk::route('/create'),
+            'edit' => Pages\EditMerk::route('/{record}/edit'),
         ];
     }
 }

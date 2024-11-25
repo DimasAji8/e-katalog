@@ -2,13 +2,18 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Forms;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
 use App\Filament\Resources\KategoriResource\Pages;
 use App\Models\Kategori; // Pastikan ini mengarah ke model Kategori
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 
 class KategoriResource extends Resource
 {
@@ -19,32 +24,59 @@ class KategoriResource extends Resource
      protected static ?string $navigationGroup = 'Master'; // Menambahkan grup
     
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ]);
-    }
+    public static function form(Forms\Form $form): Forms\Form
+{
+    return $form
+        ->schema([
+            TextInput::make('name')
+                ->label('Nama Kategori')
+                ->required()
+                ->maxLength(255),
 
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('created_at')->label('Date Created')->date()->sortable(),
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+            FileUpload::make('gambar')
+                ->label('Gambar')
+                ->disk('public')
+                ->directory('kategori-images') // Direktori penyimpanan gambar
+                ->image()
+                ->visibility('public')
+                ->nullable(), // Tidak wajib diisi
+
+            Textarea::make('deskripsi')
+                ->label('Deskripsi')
+                ->rows(4)
+                ->nullable(),
+        ]);
+}
+
+
+    public static function table(Tables\Table $table): Tables\Table
+{
+    return $table
+        ->columns([
+            TextColumn::make('name')
+                ->label('Nama Kategori')
+                ->sortable()
+                ->searchable(),
+
+            ImageColumn::make('gambar')
+                ->label('Gambar')
+                ->disk('public')
+                ->size(60),
+
+            TextColumn::make('deskripsi')
+                ->label('Deskripsi')
+                ->limit(50) // Menampilkan preview deskripsi maksimal 50 karakter
+                ->wrap(),
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
+        ]);
+}
+
 
     public static function getPages(): array
     {

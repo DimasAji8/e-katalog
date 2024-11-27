@@ -17,12 +17,25 @@ Route::get('/', function () {
 // Rute Kategori
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
 
+// Rute untuk menampilkan produk berdasarkan kategori
+Route::get('/kategori/{id}', [ProductController::class, 'byCategory'])->name('produk.byCategory');
+
+// Rute Merk
+Route::get('/merk', [MerkController::class, 'index'])->name('merk.index');
+
+// Rute untuk menampilkan produk berdasarkan merk
+Route::get('/merk/{id}', [MerkController::class, 'byMerk'])->name('produk.byMerk');
+
+// Rute untuk menampilkan detail produk
+Route::get('/produk/{id}', [ProductController::class, 'detail'])->name('produk.detail');
+
+
 // Rute Berita
 Route::get('/berita', [ArtikelController::class, 'index'])->name('berita.index');
 
-// Rute Produk
-Route::get('/produk', [ProductController::class, 'index'])->name('produk.index');
-Route::get('/produk/{product}', [ProductController::class, 'show'])->name('produk.show');
+// Route untuk detail artikel
+Route::get('/berita/{id}', [ArtikelController::class, 'show'])->name('berita.show');
+
 
 // Rute Tentang
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
@@ -30,11 +43,13 @@ Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index
 // Rute Kontak
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 
-// Rute Merk
-Route::get('/merk', [MerkController::class, 'index'])->name('merk.index');
+
 
 // Rute Review
+
 Route::get('/testimoni', [ReviewController::class, 'index'])->name('review.index');
+Route::get('/testimoni/create', [ReviewController::class, 'create'])->name('review.create');
+Route::post('/testimoni', [ReviewController::class, 'store'])->name('review.store');
 
 // Rute Gallery
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');

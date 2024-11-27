@@ -29,16 +29,16 @@ class Product extends Model
         'images' => 'array',
     ];
 
-    // Relasi ke kategori
-    public function category()
-    {
-        return $this->belongsTo(Kategori::class, 'kategori_id');
-    }
-
-    // Relasi ke merk
+    // Relasi ke Merk
     public function merk()
     {
-        return $this->belongsTo(Merk::class, 'merk_id');
+        return $this->belongsTo(Merk::class);
+    }
+
+    // Relasi ke Kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
     }
 
     // Accessor untuk mendapatkan gambar pertama dari kolom images

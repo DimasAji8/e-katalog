@@ -19,4 +19,12 @@ class ArtikelController extends Controller
         // Mengirim data artikel ke view
         return view('artikel.index', compact('articles'));
     }
+    public function show($id)
+    {
+        // Mengambil artikel berdasarkan ID
+        $artikel = Artikel::findOrFail($id);
+
+        // Mengirim artikel ke view detail
+        return view('artikel.detail', compact('artikel')); // Pastikan folder sesuai
+    }
 }

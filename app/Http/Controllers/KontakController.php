@@ -17,6 +17,6 @@ class KontakController extends Controller
         $kontak = Kontak::first();
 
         // Mengirim data kontak ke view
-        return view('kontak.index', compact('kontak'));
+        return view('kontak', compact('kontak'));
     }
 }

@@ -7,23 +7,36 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-    // Menampilkan form untuk menambah ulasan
-    public function create()
+    /**
+     * Menampilkan daftar ulasan.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
     {
-        return view('reviews.create');
+        // Ambil semua ulasan yang disetujui/tampil
+        $reviews = Review::where('is_visible', 1)->latest()->get();
+
+        // Kirim data ulasan ke view
+        return view('testimoni.index', compact('reviews'));
     }
 
-    // Menyimpan ulasan ke dalam database
+    /**
+     * Menyimpan ulasan ke dalam database.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
-        // Validasi inputan
+        // Validasi input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'content' => 'required|string',
+            'email' => 'required|email|max:255',
+            'content' => 'required|string|max:1000',
         ]);
 
-        // Simpan ulasan ke dalam database
+        // Simpan ulasan ke database
         Review::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -32,6 +45,6 @@ class ReviewController extends Controller
         ]);
 
         // Kembali ke halaman sebelumnya dengan pesan sukses
-        return back()->with('message', 'Ulasan berhasil dikirim.');
+        return redirect()->route('review.index')->with('message', 'Ulasan Anda telah berhasil dikirim.');
     }
 }

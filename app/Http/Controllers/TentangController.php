@@ -17,6 +17,6 @@ class TentangController extends Controller
         $tentang = Tentang::first();
 
         // Mengirim data tentang ke view
-        return view('tentang.index', compact('tentang'));
+        return view('tentang', compact('tentang'));
     }
 }

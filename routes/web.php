@@ -9,10 +9,11 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route untuk halaman utama
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
+
 
 // Rute Kategori
 Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
@@ -37,16 +38,8 @@ Route::get('/berita', [ArtikelController::class, 'index'])->name('berita.index')
 Route::get('/berita/{id}', [ArtikelController::class, 'show'])->name('berita.show');
 
 
-// Rute Tentang
-Route::get('/tentang', [TentangController::class, 'index'])->name('tentang.index');
-
-// Rute Kontak
-Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
-
-
 
 // Rute Review
-
 Route::get('/testimoni', [ReviewController::class, 'index'])->name('review.index');
 Route::get('/testimoni/create', [ReviewController::class, 'create'])->name('review.create');
 Route::post('/testimoni', [ReviewController::class, 'store'])->name('review.store');

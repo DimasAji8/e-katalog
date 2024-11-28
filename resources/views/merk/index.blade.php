@@ -20,24 +20,20 @@
                     </a>
 
                     <div class="bg-white p-4 sm:p-6">
-                        <!-- Tanggal -->
-                        <time datetime="{{ $merk->created_at->format('Y-m-d') }}" class="block text-xs text-gray-500">
-                            {{ $merk->created_at->format('d M Y') }}
-                        </time>
 
                         <!-- Judul Merk -->
                         <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
-                            <h3 class="mt-0.5 text-lg text-gray-900">
+                            <h3 class="mt-0.5 text-lg text-gray-900 text-center font-bold">
                                 {{ $merk->nama }}
                             </h3>
                         </a>
 
                         <!-- Deskripsi Merk -->
-                        <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
+                        {{-- <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
                             <p class="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">
                                 Gambar Merk: {{ $merk->nama ?? 'Deskripsi tidak tersedia.' }}
                             </p>
-                        </a>
+                        </a> --}}
                     </div>
                 </article>
             @empty

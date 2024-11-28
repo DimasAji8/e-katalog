@@ -5,7 +5,6 @@
     <div class="container mx-auto">
         <div class="text-center p-5">
             <h1 class="text-4xl font-bold text-gray-800 lg:text-5xl dark:text-white">{{ $merk->nama }}</h1>
-            <p class="mt-3 text-gray-500 w-2/3 mx-auto">{{ $merk->deskripsi ?? 'Deskripsi tidak tersedia' }}</p>
         </div>
 
         <div class="flex flex-wrap justify-center gap-10">
@@ -24,12 +23,12 @@
                     <div class="bg-white p-4 sm:p-6">
                         <!-- Nama Produk dengan Tautan ke Detail -->
                         <a href="{{ route('produk.detail', $product->id) }}">
-                            <h3 class="mt-0.5 text-lg text-gray-900">{{ $product->nama }}</h3>
+                            <h3 class="mt-0.5 text-lg text-gray-900">{{ $product->name }}</h3>
                         </a>
 
                         <!-- Deskripsi Produk -->
                         <p class="mt-2 text-sm/relaxed text-gray-500">
-                            {{ $product->deskripsi ?? 'Deskripsi produk tidak tersedia.' }}
+                            {{ $product->description ?? 'Deskripsi produk tidak tersedia.' }}
                         </p>
                     </div>
                 </article>

@@ -2,25 +2,27 @@
 @include('header')
 
 <section class="bg-transparent py-10">
-    <div class="container mx-auto">
-        <div class="flex justify-between">
-            <div class="w-full md:w-2/3">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row justify-between gap-10">
+            <!-- Kolom Kiri: Gambar dan Deskripsi Produk -->
+            <div class="w-full lg:w-2/3">
                 <!-- Gambar Produk -->
                 <img
                     alt="{{ $product->nama }}"
                     src="{{ asset('storage/' . $product->getFirstImageAttribute()) }}"
-                    class="w-full object-cover h-80 md:h-96"
+                    class="w-full object-cover h-80 md:h-96 rounded-lg shadow-lg"
                 />
-                <div class="mt-5">
+
+                <div class="mt-6">
                     <!-- Nama Produk -->
                     <h1 class="text-3xl font-bold text-gray-800">{{ $product->nama }}</h1>
 
                     <!-- Deskripsi Produk -->
-                    <p class="mt-3 text-lg text-gray-700">{{ $product->deskripsi ?? 'Deskripsi produk tidak tersedia.' }}</p>
+                    <p class="mt-4 text-lg text-gray-700">{{ $product->description ?? 'Deskripsi produk tidak tersedia.' }}</p>
 
                     <!-- Informasi Lain (Harga, Ukuran, dll) -->
-                    <div class="mt-4">
-                        <p class="text-sm text-gray-600"><strong>Harga:</strong> Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
+                    <div class="mt-6 space-y-2">
+                        <p class="text-sm text-gray-600"><strong>Harga:</strong> Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                         <p class="text-sm text-gray-600"><strong>Ukuran:</strong> {{ $product->ukuran }}</p>
                         <p class="text-sm text-gray-600"><strong>Penggunaan:</strong> {{ $product->penggunaan }}</p>
                         <p class="text-sm text-gray-600"><strong>Desain:</strong> {{ $product->desain }}</p>
@@ -29,11 +31,11 @@
 
                     <!-- Gambar Tambahan (Jika ada) -->
                     @if (!empty($product->images))
-                        <div class="mt-5">
+                        <div class="mt-6">
                             <h3 class="font-semibold text-gray-800">Gambar Lainnya</h3>
-                            <div class="flex gap-4 mt-2">
+                            <div class="flex gap-4 mt-4">
                                 @foreach ($product->images as $image)
-                                    <img src="{{ asset('storage/' . $image) }}" alt="Gambar Produk" class="w-24 h-24 object-cover rounded">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Gambar Produk" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-all">
                                 @endforeach
                             </div>
                         </div>
@@ -41,16 +43,17 @@
                 </div>
             </div>
 
-            <div class="w-full md:w-1/3 mt-10 md:mt-0">
+            <!-- Kolom Kanan: Info Merk dan Kategori -->
+            <div class="w-full lg:w-1/3 mt-10 lg:mt-0">
                 <!-- Info Merk -->
-                <div class="bg-white p-5 shadow-lg rounded-lg">
+                <div class="bg-white p-6 shadow-lg rounded-lg mb-6">
                     <h3 class="text-xl font-semibold text-gray-800">Merk: {{ $product->merk->nama }}</h3>
-                    <p class="text-sm text-gray-600">{{ $product->merk->deskripsi ?? 'Deskripsi merk tidak tersedia.' }}</p>
+                    <p class="text-sm text-gray-600">{{ $product->merk->description ?? 'Deskripsi merk tidak tersedia.' }}</p>
                 </div>
 
                 <!-- Info Kategori -->
-                <div class="bg-white p-5 mt-5 shadow-lg rounded-lg">
-                    <h3 class="text-xl font-semibold text-gray-800">Kategori: {{ $product->kategori->nama }}</h3>
+                <div class="bg-white p-6 shadow-lg rounded-lg">
+                    <h3 class="text-xl font-semibold text-gray-800">Kategori: {{ $product->kategori->name }}</h3>
                     <p class="text-sm text-gray-600">{{ $product->kategori->deskripsi ?? 'Deskripsi kategori tidak tersedia.' }}</p>
                 </div>
             </div>

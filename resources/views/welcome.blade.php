@@ -7,15 +7,11 @@
 {{-- include feature --}}
 @include('feature')
 
-{{-- include tentang kami --}}
-@include('tentangKami')
-
-
 {{-- include ulasan --}}
 @include('ulasan')
 
-{{-- include kontak --}}
-@include('kontak')
+{{-- include tentang kami --}}
+@include('tentangKami')
 
 {{-- Include Footer --}}
 @include('footer')

@@ -11,12 +11,6 @@ class KontakController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        // Mengambil data kontak pertama dari database
-        $kontak = Kontak::first();
-
-        // Mengirim data kontak ke view
-        return view('kontak', compact('kontak'));
-    }
+    
 }
+

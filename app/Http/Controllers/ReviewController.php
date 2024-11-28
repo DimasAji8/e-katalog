@@ -12,14 +12,6 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        // Ambil semua ulasan yang disetujui/tampil
-        $reviews = Review::where('is_visible', 1)->latest()->get();
-
-        // Kirim data ulasan ke view
-        return view('testimoni.index', compact('reviews'));
-    }
 
     /**
      * Menyimpan ulasan ke dalam database.
@@ -27,6 +19,11 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
+    public function index()
+    {
+        return view('testimoni.index');
+    }
     public function store(Request $request)
     {
         // Validasi input
@@ -48,3 +45,4 @@ class ReviewController extends Controller
         return redirect()->route('review.index')->with('message', 'Ulasan Anda telah berhasil dikirim.');
     }
 }
+

@@ -69,7 +69,7 @@
                     <div class="mt-6">
                         <button
                             type="submit"
-                            class="inline-block w-full rounded-lg bg-pink-600 px-6 py-3 font-medium text-white sm:w-auto hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                            class="inline-block w-full rounded-lg bg-primary px-6 py-3 font-medium text-white sm:w-auto hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500"
                         >
                             Kirim Testimoni
                         </button>

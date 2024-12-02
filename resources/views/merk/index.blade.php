@@ -9,7 +9,7 @@
         </div>
         <div class="flex flex-wrap justify-center gap-10">
             @forelse ($merks as $merk)
-                <article class="overflow-hidden rounded-lg shadow transition hover:shadow-lg w-full md:w-1/3 lg:w-1/5">
+                <article class="overflow-hidden rounded-lg shadow-2xl transition hover:translate-x-3 w-full md:w-1/3 lg:w-1/5">
                     <!-- Gambar Merk -->
                     <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
                         <img

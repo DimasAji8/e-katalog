@@ -12,16 +12,21 @@
                          src="{{ asset('storage/' . $artikel->gambar) }}" 
                          alt="{{ $artikel->judul }}">
 
-                    <div class="flex flex-col justify-between py-6 lg:mx-6">
+                    <div class="flex flex-col justify-evenly py-6 lg:mx-6">
                         <!-- Menampilkan judul artikel dengan link ke detail -->
                         <a href="{{ route('berita.show', $artikel->id) }}" 
                            class="text-xl font-semibold text-gray-800 hover:underline dark:text-white">
-                            {{ $artikel->judul }}
+                            {{ \Illuminate\Support\Str::limit($artikel->judul, 50) }} <!-- Limit judul artikel -->
                         </a>
 
                         <!-- Menampilkan deskripsi artikel -->
                         <span class="text-sm text-gray-500 dark:text-gray-300">
                             {{ \Illuminate\Support\Str::limit(strip_tags($artikel->isi), 100) }}
+                        </span>
+
+                        <!-- Menampilkan tanggal update relatif -->
+                        <span class="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                            {{ \Carbon\Carbon::parse($artikel->created_at)->diffForHumans() }} <!-- Waktu relatif -->
                         </span>
                     </div>
                 </div>

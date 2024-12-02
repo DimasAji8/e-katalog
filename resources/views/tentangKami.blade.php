@@ -9,7 +9,7 @@
       </div>
 
       <div class="grid grid-cols-1 gap-12 mt-10 lg:grid-cols-3">
-          @foreach($kontak as $item)
+          @foreach($kontaks as $item)
               <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-1">
                   <div>
                       <span class="inline-block p-3 text-blue-500 rounded-full bg-blue-100/80 dark:bg-gray-800">

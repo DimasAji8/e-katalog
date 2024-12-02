@@ -1,24 +1,39 @@
 <?php
 
+// app/Providers/AppServiceProvider.php
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Http\ViewComposers\KontakComposer;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * Bootstrap any application services.
+     *
+     * @return void
      */
-    public function register(): void
+    public function boot()
     {
-        //
+        Carbon::setLocale('id');
+        // Daftarkan View Composer
+        View::composer(
+            '*', // * berarti data kontak akan tersedia di semua view
+            KontakComposer::class
+        );
     }
 
     /**
-     * Bootstrap any application services.
+     * Register any application services.
+     *
+     * @return void
      */
-    public function boot(): void
+    public function register()
     {
         //
     }
 }
+

@@ -38,7 +38,7 @@ class ReviewController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'content' => $validated['content'],
-            'is_visible' => 1, // Default ulasan tampil
+            'is_visible' => 0, // Default ulasan tampil
         ]);
 
         // Kembali ke halaman sebelumnya dengan pesan sukses

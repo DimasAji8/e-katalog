@@ -27,7 +27,7 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Select::make('kategori_id')
-                    ->relationship('category', 'name') // Menampilkan nama kategori
+                    ->relationship('kategori', 'name') // Menampilkan nama kategori
                     ->label('Kategori')
                     ->required(),
 

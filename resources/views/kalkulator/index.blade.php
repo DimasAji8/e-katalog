@@ -3,7 +3,7 @@
 <section class="container mx-auto px-6 py-10">
     <div class="text-center p-7">
         <h1 class="text-4xl font-bold text-gray-800 lg:text-5xl dark:text-white">Kalkulator Keramik</h1>
-        <p class="mt-3 text-gray-500 w-2/3 mx-auto">Hitung jumlah keramik yang Anda butuhkan berdasarkan ukuran bidang dan keramik yang dipilih.</p>
+        <p class="mt-3 text-gray-500 w-2/3 mx-auto mb-4">Hitung jumlah keramik yang Anda butuhkan berdasarkan ukuran bidang dan keramik yang dipilih.</p>
     </div>
 
     <!-- Formulir Input dan Gambar di Samping -->
@@ -20,7 +20,7 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-    
+
                     <!-- Input Lebar -->
                     <div class="w-full">
                         <label for="lebar" class="block text-sm font-medium text-gray-700">Lebar (meter)</label>
@@ -69,35 +69,155 @@
                     </div>
                 </div>
                 @else
-                <p class="mt-4 text-center text-gray-500">Hasil perhitungan belum tersedia. Coba masukkan data dan hitung.</p>
+                <p class="mt-4 text-center text-gray-500">Harap Masukkan Data yang Anda Perlukan</p>
                 @endisset
 
-                <!-- Tombol Hitung dan Reset -->
-                <div class="flex justify-between gap-4 mt-6">
-                    <button type="submit" class="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 w-full md:w-auto transition-all duration-300">
+                <!-- Tombol Hitung, Reset, dan Cetak PDF -->
+                <div class="flex flex-col md:flex-row justify-between gap-4 mt-6">
+                    <button type="submit" class="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300">
                         Hitung
                     </button>
-                    <button type="button" class="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 w-full md:w-auto transition-all duration-300" onclick="resetHasil()">
+                    <button type="button" class="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-300" onclick="resetHasil()">
                         Reset
+                    </button>
+                    <button onclick="window.print()" class="px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300">
+                        Cetak PDF
                     </button>
                 </div>
             </div>
         </form>
 
-        <!-- Gambar (Kanan) -->
+        <!-- Simulasi Bidang (Kanan) -->
         <div class="w-full md:w-1/2 flex justify-center">
-            <img src="{{ asset('gambar samping kalkulator.jpg') }}" alt="Gambar Kalkulator Keramik" class="w-full max-w-[400px] h-auto object-contain rounded-lg shadow-lg mx-auto md:mx-0">
+            <div id="simulasiBidang" class="w-full max-w-[400px] h-auto object-contain rounded-lg shadow-lg mx-auto md:mx-0"></div>
         </div>
     </div>
 </section>
 
 @include('footer')
 
-<script>
-    function resetHasil() {
-        // Reset hanya hasil perhitungan
-        document.getElementById("luasLantai").value = "";
-        document.getElementById("jumlahKeramik").value = "";
-        document.getElementById("jumlahBox").value = "";
+<style>
+    @media print {
+        /* Pengaturan Halaman untuk PDF */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0;
+            display: block;
+        }
+
+        .flex, .md\:flex-row {
+            display: flex;
+            flex-direction: row !important;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 0;
+        }
+
+        .w-full {
+            width: 48% !important; /* Memperbesar area untuk form dan gambar */
+        }
+
+        .w-1/2 {
+            width: 48% !important; /* Memperbesar area untuk form dan gambar */
+        }
+
+        .space-y-6, .space-y-4 {
+            margin-bottom: 0;
+        }
+
+        .gap-5 {
+            margin-bottom: 0;
+        }
+
+        .footer {
+            display: none;
+        }
+
+        .form-section {
+            page-break-before: always;
+        }
+
+        .form-section > div:last-child {
+            page-break-after: always;
+        }
+
+        /* Memastikan kedua elemen berada di samping satu sama lain */
+        .flex {
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
     }
+</style>
+
+
+<script>
+    function updateSimulasi() {
+        const panjang = parseFloat(document.getElementById("panjang").value) || 0;
+        const lebar = parseFloat(document.getElementById("lebar").value) || 0;
+        const ukuranKeramik = parseFloat(document.getElementById("ukuran_keramik").value) || 0;
+
+        if (panjang && lebar && ukuranKeramik) {
+            const panjangCm = panjang * 100; // Convert panjang ke cm
+            const lebarCm = lebar * 100; // Convert lebar ke cm
+            const luasLantai = panjang * lebar;
+            const jumlahKeramik = Math.ceil(luasLantai / ukuranKeramik);
+            const jumlahBox = Math.ceil(jumlahKeramik / 10); // Misal 1 box berisi 10 keramik
+
+            // Update input dan output
+            document.getElementById("luasLantai").value = luasLantai.toFixed(2);
+            document.getElementById("jumlahKeramik").value = jumlahKeramik;
+            document.getElementById("jumlahBox").value = jumlahBox;
+
+            // Update simulasi
+            const simulasikan = document.getElementById("simulasiBidang");
+            simulasikan.innerHTML = ''; // Clear previous simulation
+
+            const keramikSize = Math.sqrt(ukuranKeramik) * 100; // Ukuran keramik dalam px
+            const rows = Math.floor(lebarCm / keramikSize);
+            const cols = Math.floor(panjangCm / keramikSize);
+
+            for (let i = 0; i < rows; i++) {
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                for (let j = 0; j < cols; j++) {
+                    const keramik = document.createElement('div');
+                    keramik.style.width = `${keramikSize}px`;
+                    keramik.style.height = `${keramikSize}px`;
+                    keramik.style.backgroundColor = '#a0a0a0';
+                    keramik.style.margin = '1px';
+                    keramik.style.border = '1px solid #777';
+                    row.appendChild(keramik);
+                }
+                simulasikan.appendChild(row);
+            }
+        }
+    }
+
+    function resetHasil() {
+        // Reset form fields and results
+        document.getElementById("kalkulatorForm").reset();
+        document.getElementById("simulasiBidang").innerHTML = '';
+        document.getElementById("luasLantai").value = '';
+        document.getElementById("jumlahKeramik").value = '';
+        document.getElementById("jumlahBox").value = '';
+
+        // Reset input manually
+        document.getElementById("panjang").value = '';
+        document.getElementById("lebar").value = '';
+        document.getElementById("ukuran_keramik").selectedIndex = 0; // Reset to first option
+    }
+
+    // Panggil updateSimulasi pertama kali untuk memulai simulasi
+    updateSimulasi();
 </script>

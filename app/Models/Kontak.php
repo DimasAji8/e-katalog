@@ -11,12 +11,9 @@ class Kontak extends Model
 
     protected $fillable = [
         'whatsapp',
-        'email',
-        'youtube',
-        'facebook',
-        'tiktok',
-        'maps',
         'shopee',
         'tokped',
+        'maps',
+        'instagram',
     ];
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\KontakResource\Pages;
@@ -19,7 +20,6 @@ class KontakResource extends Resource
     // Mengelompokkan resource di sidebar
     protected static ?string $navigationGroup = 'Setting'; // Menambahkan grup
 
-
     public static function form(Form $form): Form
     {
         return $form
@@ -28,33 +28,20 @@ class KontakResource extends Resource
                     ->label('WhatsApp')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->label('Email')
-                    ->required()
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('youtube')
-                    ->label('YouTube')
-                    ->nullable()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('facebook')
-                    ->label('Facebook')
-                    ->nullable()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('tiktok')
-                    ->label('TikTok')
-                    ->nullable()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('maps')
-                    ->label('Maps')
-                    ->nullable()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('shopee')
                     ->label('Shopee')
                     ->nullable()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('tokped')
                     ->label('Tokopedia')
+                    ->nullable()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('maps')
+                    ->label('Maps')
+                    ->nullable()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('instagram')
+                    ->label('Instagram')
                     ->nullable()
                     ->maxLength(255),
             ]);
@@ -67,26 +54,17 @@ class KontakResource extends Resource
                 Tables\Columns\TextColumn::make('whatsapp')
                     ->label('WhatsApp')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('youtube')
-                    ->label('YouTube')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('facebook')
-                    ->label('Facebook')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tiktok')
-                    ->label('TikTok')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('maps')
-                    ->label('Maps')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('shopee')
                     ->label('Shopee')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('tokped')
                     ->label('Tokopedia')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('maps')
+                    ->label('Maps')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('instagram')
+                    ->label('Instagram')
                     ->searchable(),
             ])
             ->actions([
@@ -94,7 +72,8 @@ class KontakResource extends Resource
             ])
             ->bulkActions([]);
     }
-     public static function canCreate(): bool
+
+    public static function canCreate(): bool
     {
         // Mencegah penambahan data jika sudah ada data tentang
         return Kontak::count() === 0;

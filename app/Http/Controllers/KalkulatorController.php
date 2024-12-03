@@ -12,34 +12,35 @@ class KalkulatorController extends Controller
     }
 
     public function hitung(Request $request)
-    {
-        // Validasi input dari user
-        $request->validate([
-            'panjang' => 'required|numeric|min:0.1',
-            'lebar' => 'required|numeric|min:0.1',
-            'ukuran_keramik' => 'required|numeric',
-        ]);
+{
+    // Validasi input dari user
+    $request->validate([
+        'panjang' => 'required|numeric|min:0.1',
+        'lebar' => 'required|numeric|min:0.1',
+        'ukuran_keramik' => 'required|numeric',
+    ]);
 
-        // Ambil data dari input user
-        $panjang = $request->input('panjang');
-        $lebar = $request->input('lebar');
-        $ukuranKeramik = $request->input('ukuran_keramik');
+    // Ambil data dari input user
+    $panjang = $request->input('panjang');
+    $lebar = $request->input('lebar');
+    $ukuranKeramik = $request->input('ukuran_keramik');
 
-        // Hitung luas lantai
-        $luasLantai = $panjang * $lebar;
+    // Hitung luas lantai
+    $luasLantai = $panjang * $lebar;
 
-        // Hitung jumlah keramik
-        $jumlahKeramik = ceil($luasLantai / $ukuranKeramik);
+    // Hitung jumlah keramik
+    $jumlahKeramik = ceil($luasLantai / $ukuranKeramik);
 
-        // Ambil jumlah keramik per dus (box) berdasarkan ukuran keramik
-        $keramikPerDus = $this->getKeramikPerDus($ukuranKeramik);
+    // Ambil jumlah keramik per dus (box) berdasarkan ukuran keramik
+    $keramikPerDus = $this->getKeramikPerDus($ukuranKeramik);
 
-        // Hitung jumlah box
-        $jumlahBox = ceil($jumlahKeramik / $keramikPerDus);
+    // Hitung jumlah box
+    $jumlahBox = ceil($jumlahKeramik / $keramikPerDus);
 
-        // Kirim hasil ke view
-        return view('kalkulator/index', compact('luasLantai', 'jumlahKeramik', 'jumlahBox'));
-    }
+    // Kirim hasil perhitungan dan input kembali ke view
+    return view('kalkulator/index', compact('luasLantai', 'jumlahKeramik', 'jumlahBox', 'panjang', 'lebar', 'ukuranKeramik'));
+}
+
 
     // Fungsi untuk mendapatkan jumlah keramik per dus (box) berdasarkan ukuran keramik
     private function getKeramikPerDus($ukuranKeramik)

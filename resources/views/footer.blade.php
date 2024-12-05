@@ -22,11 +22,16 @@
             <p class="text-sm text-gray-500 dark:text-gray-300">© Copyright 2024. All Rights Reserved.</p>
 
             <div class="flex -mx-2">
-               
+                {{-- Instagram --}}
+                <a href="{{ 'https://' . $kontak->instagram }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
+                    <img class="w-5 h-5 fill-current" src="{{ asset('img/instagramIcon.svg') }}" alt="facebook icon">
+                </a>
 
                 <!-- TikTok -->
+                <a href="{{ 'https://' . $kontak->tiktok }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
+                    <img class="w-5 h-5 fill-current" src="{{ asset('img/tiktokIcon.svg') }}" alt="facebook icon">
+                </a>
                 
-
                 <!-- Facebook -->
                 <a href="{{ 'https://' . $kontak->facebook }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
                     <img class="w-5 h-5 fill-current" src="{{ asset('img/facebookIcon.svg') }}" alt="facebook icon">

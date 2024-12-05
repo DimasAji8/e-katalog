@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\TentangController;
 use App\Models\Review;
 use App\Models\Kontak;
+use App\Models\Tentang;
 
 
 class HomeController extends Controller
@@ -21,6 +23,8 @@ class HomeController extends Controller
         // Mengambil data kontak pertama (opsional)
         $kontak = Kontak::first();
 
+        $tentang = Tentang::all();
+
         // Menghapus "http://" atau "https://" dari URL jika ada
         if ($kontak) {
             $kontak->youtube = preg_replace('#https?://#', '', $kontak->youtube ?? '');
@@ -31,7 +35,7 @@ class HomeController extends Controller
         }
 
         // Kirim data ke view
-        return view('welcome', compact('reviews', 'kontak', 'kontaks'));
+        return view('welcome', compact('reviews', 'kontak', 'kontaks', 'tentang'));
     }
 }
 

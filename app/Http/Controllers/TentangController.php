@@ -11,12 +11,4 @@ class TentangController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
-        // Mengambil data tentang pertama dari database
-        $tentang = Tentang::first();
-
-        // Mengirim data tentang ke view
-        return view('tentang', compact('tentang'));
-    }
 }

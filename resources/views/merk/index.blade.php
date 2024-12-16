@@ -4,37 +4,54 @@
     <div class="container mx-auto px-10">
         <div class="text-center p-10">
             <h1 class="text-4xl font-bold text-gray-800 lg:text-5xl dark:text-white">PRODUK</h1>
-            <p class="mt-3 text-gray-500 w-2/3 mx-auto">Kami persembahkan berbagai variasi produk. Terdiri dari beragam ukuran, gaya,
-                baik untuk lantai dan dinding yang mampu memenuhi kebutuhan Anda.</p>
+            <p class="mt-3 text-gray-500 w-2/3 mx-auto">
+                Kami persembahkan berbagai variasi produk. Terdiri dari beragam ukuran, gaya,
+                baik untuk lantai dan dinding yang mampu memenuhi kebutuhan kamu.
+            </p>
         </div>
 
         <!-- Menampilkan Produk Berdasarkan Merk -->
-        <div class="flex flex-wrap justify-center gap-10">
-            @forelse ($merks as $merk)
-                <article class="overflow-hidden rounded-lg shadow-2xl transition hover:translate-x-3 w-full md:w-1/3 lg:w-1/5">
-                    <!-- Gambar Merk -->
-                    <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
-                        <img
-                            alt="{{ $merk->nama }}"
-                            src="{{ asset('storage/' . $merk->gambar) }}"
-                            class="h-56 w-full object-cover"
-                        />
-                    </a>
-
-                    <div class="bg-white p-4 sm:p-6">
-                        <!-- Judul Merk -->
-                        <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
-                            <h3 class="mt-0.5 text-lg text-gray-900 text-center font-bold">
-                                {{ $merk->nama }}
-                            </h3>
-                        </a>
+        <div x-data="carousel({{ count($merks) }})" class="relative overflow-hidden">
+            <!-- Carousel Container -->
+            <div class="flex transition-transform duration-500 ease-in-out"
+                :style="{ transform: `translateX(-${currentSlide * cardWidth}px)` }">
+                @foreach ($merks as $merk)
+                    <div class="w-full flex-none md:w-1/3 lg:w-1/5" style="min-width: 300px;">
+                        <article class="overflow-hidden rounded-lg shadow-2xl transition hover:translate-x-3 mx-3">
+                            <!-- Gambar Merk -->
+                            <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
+                                <img
+                                    alt="{{ $merk->nama }}"
+                                    src="{{ asset('storage/' . $merk->gambar) }}"
+                                    class="h-56 w-full object-cover"
+                                />
+                            </a>
+                            <div class="bg-white p-4 sm:p-6">
+                                <!-- Judul Merk -->
+                                <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
+                                    <h3 class="mt-0.5 text-lg text-gray-900 text-center font-bold">
+                                        {{ $merk->nama }}
+                                    </h3>
+                                </a>
+                            </div>
+                        </article>
                     </div>
-                </article>
+                @endforeach
+            </div>
 
-            @empty
-                <p class="text-gray-500">Tidak ada merk yang tersedia saat ini.</p>
-            @endforelse
+            <!-- Carousel Buttons -->
+            <button
+                @click="prev()"
+                class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full shadow-lg">
+                &#8592;
+            </button>
+            <button
+                @click="next()"
+                class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full shadow-lg">
+                &#8594;
+            </button>
         </div>
+        <!-- Akhir Menampilkan Produk Berdasarkan Merk -->
 
         <!-- Menampilkan Semua Produk -->
         <div class="mt-16 w-full">
@@ -71,3 +88,23 @@
 </section>
 
 @include('footer')
+
+<script>
+    function carousel(totalCards) {
+        return {
+            currentSlide: 0,
+            cardWidth: 300, // Sesuaikan dengan min-width kartu
+            totalCards: totalCards,
+            next() {
+                if (this.currentSlide < this.totalCards - 1) {
+                    this.currentSlide++;
+                }
+            },
+            prev() {
+                if (this.currentSlide > 0) {
+                    this.currentSlide--;
+                }
+            }
+        }
+    }
+</script>

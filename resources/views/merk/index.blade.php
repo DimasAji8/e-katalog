@@ -2,55 +2,57 @@
 
 <section class="bg-transparent py-5">
     <div class="container mx-auto px-10">
-        <div class="text-center p-10">
+        <div class="text-center md:p-10 p-2">
             <h1 class="text-4xl font-bold text-gray-800 lg:text-5xl dark:text-white">PRODUK</h1>
-            <p class="mt-3 text-gray-500 w-2/3 mx-auto">
+            <p class="mt-3 text-gray-500">
                 Kami persembahkan berbagai variasi produk. Terdiri dari beragam ukuran, gaya,
                 baik untuk lantai dan dinding yang mampu memenuhi kebutuhan kamu.
             </p>
         </div>
 
-        <!-- Menampilkan Produk Berdasarkan Merk -->
-        <div x-data="carousel({{ count($merks) }})" class="relative overflow-hidden">
-            <!-- Carousel Container -->
-            <div class="flex transition-transform duration-500 ease-in-out"
-                :style="{ transform: `translateX(-${currentSlide * cardWidth}px)` }">
-                @foreach ($merks as $merk)
-                    <div class="w-full flex-none md:w-1/3 lg:w-1/5" style="min-width: 300px;">
-                        <article class="overflow-hidden rounded-lg shadow-2xl transition hover:translate-x-3 mx-3">
-                            <!-- Gambar Merk -->
-                            <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
-                                <img
-                                    alt="{{ $merk->nama }}"
-                                    src="{{ asset('storage/' . $merk->gambar) }}"
-                                    class="h-56 w-full object-cover"
-                                />
-                            </a>
-                            <div class="bg-white p-4 sm:p-6">
-                                <!-- Judul Merk -->
-                                <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
-                                    <h3 class="mt-0.5 text-lg text-gray-900 text-center font-bold">
-                                        {{ $merk->nama }}
-                                    </h3>
-                                </a>
-                            </div>
-                        </article>
+        <!-- Carousel Container -->
+<div x-data="carousel({{ count($merks) }})" class="relative overflow-hidden">
+    <!-- Carousel Wrapper -->
+    <div class="flex transition-transform duration-500 ease-in-out"
+        :style="{ transform: `translateX(-${currentSlide * cardWidth}px)` }">
+        @foreach ($merks as $merk)
+            <div class="w-full flex-none md:w-1/3 lg:w-1/5" style="min-width: 300px;">
+                <article class="overflow-hidden rounded-lg shadow-2xl transition hover:translate-x-3 mx-3">
+                    <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
+                        <img
+                            alt="{{ $merk->nama }}"
+                            src="{{ asset('storage/' . $merk->gambar) }}"
+                            class="h-56 w-full object-cover"
+                        />
+                    </a>
+                    <div class="bg-white p-4 sm:p-6">
+                        <a href="{{ route('produk.byMerk', ['id' => $merk->id]) }}">
+                            <h3 class="mt-0.5 text-lg text-gray-900 text-center font-bold">
+                                {{ $merk->nama }}
+                            </h3>
+                        </a>
                     </div>
-                @endforeach
+                </article>
             </div>
+        @endforeach
+    </div>
 
-            <!-- Carousel Buttons -->
-            <button
-                @click="prev()"
-                class="absolute left-0 top-1/2 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full shadow-lg">
-                &#8592;
-            </button>
-            <button
-                @click="next()"
-                class="absolute right-0 top-1/2 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full shadow-lg">
-                &#8594;
-            </button>
-        </div>
+    <!-- Navigation Buttons -->
+    <button 
+        @click="prev()" 
+        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-colors duration-200 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 group-hover:text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+    <button 
+        @click="next()" 
+        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full shadow-lg transition-colors duration-200 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600 group-hover:text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+</div>
         <!-- Akhir Menampilkan Produk Berdasarkan Merk -->
 
         <!-- Menampilkan Semua Produk -->
@@ -90,19 +92,49 @@
 @include('footer')
 
 <script>
-    function carousel(totalCards) {
+    function carousel(totalItems) {
         return {
             currentSlide: 0,
-            cardWidth: 300, // Sesuaikan dengan min-width kartu
-            totalCards: totalCards,
+            cardWidth: 300,
+            totalItems: totalItems,
+            visibleItems: 5, // Jumlah item yang terlihat di desktop
+
             next() {
-                if (this.currentSlide < this.totalCards - 1) {
+                if (this.currentSlide >= this.totalItems - this.visibleItems) {
+                    // Kembali ke awal jika sudah di slide terakhir
+                    this.currentSlide = 0;
+                } else {
                     this.currentSlide++;
                 }
             },
+            
             prev() {
-                if (this.currentSlide > 0) {
+                if (this.currentSlide <= 0) {
+                    // Pergi ke slide terakhir jika di awal
+                    this.currentSlide = this.totalItems - this.visibleItems;
+                } else {
                     this.currentSlide--;
+                }
+            },
+
+            // Menghitung jumlah item yang terlihat berdasarkan ukuran layar
+            init() {
+                this.updateVisibleItems();
+                window.addEventListener('resize', () => this.updateVisibleItems());
+            },
+
+            updateVisibleItems() {
+                if (window.innerWidth < 768) {
+                    this.visibleItems = 1; // Mobile
+                } else if (window.innerWidth < 1024) {
+                    this.visibleItems = 3; // Tablet
+                } else {
+                    this.visibleItems = 5; // Desktop
+                }
+                
+                // Pastikan currentSlide tidak melebihi batas
+                if (this.currentSlide > this.totalItems - this.visibleItems) {
+                    this.currentSlide = this.totalItems - this.visibleItems;
                 }
             }
         }

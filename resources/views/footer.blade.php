@@ -23,27 +23,27 @@
 
             <div class="flex -mx-2">
                 {{-- Instagram --}}
-                <a href="{{ 'https://' . $kontak->instagram }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
-                    <img class="w-5 h-5 fill-current" src="{{ asset('img/instagramIcon.svg') }}" alt="facebook icon">
+                <a href="https://instagram.com/{{ $kontak->instagram }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Instagram">
+                    <img class="w-5 h-5 fill-current" src="{{ asset('img/instagramIcon.svg') }}" alt="instagram icon">
                 </a>
 
                 <!-- TikTok -->
-                <a href="{{ 'https://' . $kontak->tiktok }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
-                    <img class="w-5 h-5 fill-current" src="{{ asset('img/tiktokIcon.svg') }}" alt="facebook icon">
+                <a href="https://tiktok.com/@{{ $kontak->tiktok }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="TikTok">
+                    <img class="w-5 h-5 fill-current" src="{{ asset('img/tiktokIcon.svg') }}" alt="tiktok icon">
                 </a>
-                
+
                 <!-- Facebook -->
-                <a href="{{ 'https://' . $kontak->facebook }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
+                <a href="https://facebook.com/{{ $kontak->facebook }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Facebook">
                     <img class="w-5 h-5 fill-current" src="{{ asset('img/facebookIcon.svg') }}" alt="facebook icon">
                 </a>
 
                 <!-- Shopee -->
-                <a href="{{ 'https://' . $kontak->shopee }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Shopee">
+                <a href="https://shopee.co.id/{{ $kontak->shopee }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Shopee">
                     <img class="w-5 h-5 fill-current" src="{{ asset('img/shopeeIcon.svg') }}" alt="shopee icon">
                 </a>
 
                 <!-- Tokopedia -->
-                <a href="{{ 'https://' . $kontak->tokped }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Tokopedia">
+                <a href="https://tokopedia.com/{{ $kontak->tokped }}" class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400" aria-label="Tokopedia">
                     <img class="w-5 h-5 fill-current" src="{{ asset('img/tokopediaIcon.svg') }}" alt="tokopedia icon">
                 </a>
             </div>

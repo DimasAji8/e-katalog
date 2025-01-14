@@ -137,8 +137,9 @@
             display: none !important;
         }
 
-        #simulasiContainer {
-            border: 1px solid #000 !important;
+        /* Sembunyikan seluruh bagian simulasi bidang */
+        .md\:w-1\/2.flex.justify-center.items-center {
+            display: none !important;
         }
 
         .text-gray-500 {
@@ -146,6 +147,7 @@
         }
     }
 </style>
+
 
 <script>
 function handleSubmit(event) {

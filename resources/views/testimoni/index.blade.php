@@ -17,9 +17,9 @@
                 </p>
 
                 <div class="mt-8">
-                    <a href="tel:+01514754450" class="text-2xl font-bold text-pink-600"> 0151 475 4450 </a>
+                    <a href="tel:+01514754450" class="text-2xl font-bold text-pink-600"> 083806050254 </a>
 
-                    <address class="mt-2 text-gray-700 not-italic">282 Kevin Brook, Imogeneborough, CA 58517</address>
+                    <address class="mt-2 text-gray-700 not-italic">Ryan Putra Ritelindo</address>
                 </div>
             </div>
 

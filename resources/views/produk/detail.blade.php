@@ -7,11 +7,12 @@
             <!-- Kolom Kiri: Gambar dan Deskripsi Produk -->
             <div class="w-full lg:w-2/3">
                 <!-- Gambar Produk -->
-                <img
-                    alt="{{ $product->nama }}"
-                    src="{{ asset('storage/' . $product->getFirstImageAttribute()) }}"
-                    class="w-full object-cover h-80 md:h-96 rounded-lg shadow-lg"
-                />
+                <div class="relative w-full h-[300px] md:h-[300px] flex justify-center items-center"> <!-- Menjaga gambar tetap persegi dan berada di tengah -->
+                    <img
+                        alt="{{ $product->nama }}"
+                        src="{{ asset('storage/' . $product->getFirstImageAttribute()) }}"
+                        class="w-[300px] h-[300px] object-cover rounded-lg shadow-lg" /> <!-- Ukuran persegi dan objek gambar menutupi area -->
+                </div>
 
                 <div class="mt-6">
                     <!-- Nama Produk -->
@@ -35,7 +36,7 @@
                             <h3 class="font-semibold text-gray-800">Gambar Lainnya</h3>
                             <div class="flex gap-4 mt-4">
                                 @foreach ($product->images as $image)
-                                    <img src="{{ asset('storage/' . $image) }}" alt="Gambar Produk" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-all">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Gambar Produk" class="w-[80px] h-[80px] object-cover rounded-lg shadow-md hover:scale-105 transition-all"> <!-- Ukuran gambar thumbnail tetap -->
                                 @endforeach
                             </div>
                         </div>
@@ -48,7 +49,7 @@
                 <!-- Info Merk -->
                 <div class="bg-white p-6 shadow-lg rounded-lg mb-6">
                     <h3 class="text-xl font-semibold text-gray-800">Merk: {{ $product->merk->nama }}</h3>
-                    <p class="text-sm text-gray-600">{{ $product->merk->description ?? 'Deskripsi merk tidak tersedia.' }}</p>
+                    <!-- <p class="text-sm text-gray-600">{{ $product->merk->description ?? 'Deskripsi merk tidak tersedia.' }}</p> -->
                 </div>
 
                 <!-- Info Kategori -->

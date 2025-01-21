@@ -13,12 +13,16 @@
                 Dipublikasikan pada {{ $artikel->created_at->format('d M Y') }}
             </p>
 
-            <!-- Menampilkan gambar artikel -->
-            <div class="mt-6">
-                <img class="object-cover w-full h-64 rounded-lg" 
-                     src="{{ asset('storage/' . $artikel->gambar) }}" 
-                     alt="{{ $artikel->judul }}">
-            </div>
+<!-- Menampilkan gambar artikel -->
+<div class="mt-6 flex justify-center">
+    <div class="w-full max-w-xs aspect-square">
+        <img class="object-cover w-full h-full rounded-lg" 
+             src="{{ asset('storage/' . $artikel->gambar) }}" 
+             alt="{{ $artikel->judul }}">
+    </div>
+</div>
+
+
 
             <!-- Menampilkan isi artikel -->
             <div class="mt-6 text-gray-800 dark:text-gray-300 leading-relaxed">

@@ -3,26 +3,20 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
-use App\Models\User; // Pastikan ini menggunakan model User
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class AdminResource extends Resource
 {
-    // Model yang digunakan untuk resource ini
     protected static ?string $model = User::class;
-
-    // Ikon navigasi untuk sidebar
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    
-    // Label navigasi untuk sidebar
-    protected static ?string $navigationLabel = 'Admin'; // Ganti label menjadi Admins
-
-    // Mengelompokkan resource di sidebar
-    protected static ?string $navigationGroup = 'Setting'; // Menambahkan grup
+    protected static ?string $navigationLabel = 'Admin';
+    protected static ?string $navigationGroup = 'Setting';
 
     public static function form(Form $form): Form
     {
@@ -34,12 +28,19 @@ class AdminResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
+                    ->unique(ignoreRecord: true)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required()
-                    ->maxLength(255)
-                    ->dehydrateStateUsing(fn ($state) => bcrypt($state)), // Mengenkripsi password
+                    ->required(fn (string $operation): bool => $operation === 'create')
+                    ->dehydrateStateUsing(function ($state, $record) {
+                        if (empty($state)) {
+                            return $record ? $record->password : null;
+                        }
+                        return Hash::make($state);
+                    })
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->maxLength(255),
             ]);
     }
 
@@ -47,15 +48,19 @@ class AdminResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('email')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('email')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->date()
                     ->sortable(),
             ])
             ->filters([
-                // Tambahkan filter jika perlu
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -71,7 +76,7 @@ class AdminResource extends Resource
     public static function getRelations(): array
     {
         return [
-            // Tambahkan relasi jika diperlukan
+            //
         ];
     }
 
